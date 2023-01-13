@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SearchPage(props) {
+function SearchPage() {
     return (
         <div className="search-page">
             
