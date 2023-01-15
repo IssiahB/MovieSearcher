@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
-
-import { SearchContext } from './App';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import { useSearchContext } from '../contexts/SearchContext';
+import { useSearchResponseContext } from '../contexts/SearchResponseContext';
 
 import "../styles/searchBar.css";
 
 function SearchBar(props) {
+    const navigate = useNavigate();
+    const [search, setSearch] = useSearchContext();
+    const [response, setResponse] = useSearchResponseContext();
+
     const [searchInput, setSearchInput] = useState("");
     const [typeInput, setTypeInput] = useState("none");
-    const [yearInput, setYearInput] = useState(new Date().getFullYear());
+    const [yearInput, setYearInput] = useState("");
     const updateSearchInput = (event) => setSearchInput(event.target.value);
     const updateTypeInput = (event) => setTypeInput(event.target.value);
     const updateYearInput = (event) => setYearInput(event.target.value);
@@ -15,25 +20,27 @@ function SearchBar(props) {
 
     function handleSearch(event) {
         event.preventDefault();
-        const searchBody = JSON.stringify({
+        const searchBody = {
             search: searchInput,
-            year: yearInput,
+            year: (!yearInput) ? "none" : yearInput,
             type: typeInput,
             shouldSave: true
-        });
+        }
+        setSearch(searchBody);
 
         fetch('http://localhost:3000/movies/search', {
             method: "post",
-            body: searchBody,
+            body: JSON.stringify(searchBody),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then((reply) => {
             async function parseReply() {
-                const jsonReply = await(reply.json());
-                console.log(jsonReply);
+                const jsonReply = await reply.json();
+                setResponse(jsonReply);
+                navigate('/search');
             }
-
+            
             parseReply();
         });
     }
@@ -47,7 +54,7 @@ function SearchBar(props) {
                     value={searchInput}
                     onChange={updateSearchInput}
                     placeholder="Search Title"
-                    autoComplete='false'
+                    autoComplete="false"
                     required
                     />
                 <input
@@ -55,6 +62,7 @@ function SearchBar(props) {
                     type="year"
                     value={yearInput}
                     onChange={updateYearInput}
+                    placeholder="Enter Years"
                     />
                 <select name="typeInput" value={typeInput} onChange={updateTypeInput}>
                     <option>none</option>
