@@ -1,0 +1,26 @@
+.search-bar {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.search-bar form {
+    padding: 2%;
+    background-color: #474747;
+    border-radius: 10px;
+}
+
+.search-bar .inputs > input {
+    margin: 5px 5px;
+    width: 200px;
+}
+
+.search-bar .type {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0 20px 0;
+}
+
+.search-bar .type > * {
+    margin: 0 5px;
+}

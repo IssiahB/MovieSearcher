@@ -18,6 +18,10 @@ router.post("/search", (req, res) => {
         });
 });
 
+router.post("/searchone", (req, res) => {
+
+});
+
 router.get("/history", (req, res) => {
     controller.queryHistory()
         .then((history) => {
@@ -28,7 +32,7 @@ router.get("/history", (req, res) => {
     
 });
 
-router.all("/", (req, res) => {
+router.all("/*", (req, res) => {
     res.status(404).json("Sorry Page Could Not Be Found");
 });
 

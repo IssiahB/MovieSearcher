@@ -5,6 +5,7 @@ import { SearchResponseProvider } from '../contexts/SearchResponseContext';
 
 import HomePage from '../pages/HomePage';
 import SearchPage from '../pages/SearchPage';
+import DetailPage from '../pages/DetailPage';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/detail" element={<DetailPage />} />
           </Routes>
         </SearchResponseProvider>
       </SearchProvider>

@@ -11,7 +11,7 @@ function SearchBar(props) {
     const [response, setResponse] = useSearchResponseContext();
 
     const [searchInput, setSearchInput] = useState("");
-    const [typeInput, setTypeInput] = useState("none");
+    const [typeInput, setTypeInput] = useState("any");
     const [yearInput, setYearInput] = useState("");
     const updateSearchInput = (event) => setSearchInput(event.target.value);
     const updateTypeInput = (event) => setTypeInput(event.target.value);
@@ -23,7 +23,7 @@ function SearchBar(props) {
         const searchBody = {
             search: searchInput,
             year: (!yearInput) ? "none" : yearInput,
-            type: typeInput,
+            type: (typeInput === "any") ? "none" : typeInput,
             shouldSave: true
         }
         setSearch(searchBody);
@@ -48,28 +48,35 @@ function SearchBar(props) {
     return (
         <div className="search-bar">
             <form onSubmit={handleSearch}>
-                <input
-                    name="searchInput"
-                    type="text"
-                    value={searchInput}
-                    onChange={updateSearchInput}
-                    placeholder="Search Title"
-                    autoComplete="false"
-                    required
-                    />
-                <input
-                    name="yearInput"
-                    type="year"
-                    value={yearInput}
-                    onChange={updateYearInput}
-                    placeholder="Enter Years"
-                    />
-                <select name="typeInput" value={typeInput} onChange={updateTypeInput}>
-                    <option>none</option>
-                    <option>movie</option>
-                    <option>series</option>
-                    <option>episode</option>
-                </select>
+                <div className="inputs">
+                    <input
+                        name="searchInput"
+                        type="text"
+                        value={searchInput}
+                        onChange={updateSearchInput}
+                        placeholder="Search Title"
+                        autoComplete="false"
+                        required
+                        />
+                    <input
+                        name="yearInput"
+                        type="year"
+                        value={yearInput}
+                        onChange={updateYearInput}
+                        placeholder="Enter Year"
+                        />
+                </div>
+                <div className="type">
+                    <label>
+                        Type:
+                        <select name="typeInput" value={typeInput} onChange={updateTypeInput}>
+                            <option>any</option>
+                            <option>movie</option>
+                            <option>series</option>
+                            <option>episode</option>
+                        </select>
+                    </label>
+                </div>
                 
                 <button type="submit" >Search</button>
             </form>
