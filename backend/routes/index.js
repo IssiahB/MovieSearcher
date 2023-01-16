@@ -19,7 +19,18 @@ router.post("/search", (req, res) => {
 });
 
 router.post("/searchone", (req, res) => {
+    const searchData = req.body;
 
+    if (!searchData.dbid) {
+        res.status(400).json("The request reqires a dbid field");
+    }
+
+    controller.searchOneMovie(searchData.dbid)
+        .then((result) => (res.json(result)),
+        (err) => {
+            console.log(err);
+            res.status(500).json("Something Went Wrong");
+        })
 });
 
 router.get("/history", (req, res) => {

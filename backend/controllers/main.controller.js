@@ -2,9 +2,8 @@ const axios = require("axios");
 const History = require("../models/history.model");
 
 module.exports.searchMovie = async (data) => {
-    const apiKey = process.env.OMDb_KEY;
     data.search = data.search.replace(" ", "+");
-    let searchUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${data.search}`;
+    let searchUrl = getApiUrl() + `&s=${data.search}`;
 
     if (data.type !== "none") {
         const validTypes = ["movie", "series", "episode"];
@@ -22,6 +21,13 @@ module.exports.searchMovie = async (data) => {
     if (data.shouldSave === "true") {
         saveHistory(reply);
     }
+
+    return reply;
+}
+
+module.exports.searchOneMovie = async (id) => {
+    const searchUrl = getApiUrl() + `&i=${id}`;
+    let reply = await handleRealRequest(searchUrl);
 
     return reply;
 }
@@ -66,4 +72,10 @@ function saveHistory(apiData) {
         .catch((err) => {
             console.log(err);
         });
+}
+
+function getApiUrl() {
+    const apiKey = process.env.OMDb_KEY;
+    let searchUrl = `http://www.omdbapi.com/?apikey=${apiKey}`;
+    return searchUrl;
 }
