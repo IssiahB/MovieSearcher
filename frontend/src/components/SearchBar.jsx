@@ -21,15 +21,6 @@ export default function SearchBar(props) {
     const [typeInput, setTypeInput, updateTypeInput] = useControlledState("any");
     const [yearInput, setYearInput, updateYearInput] = useControlledState("");
 
-    useEffect(() => {
-        const searchCookie = Cookies.get('moviesearch');
-        if (searchCookie) {
-            let parsedCookie = JSON.parse(searchCookie);
-            // TODO search for cookie data Probably try to put it in CardBoard component, makes more sence
-        }
-    });
-
-
     function handleSearch(event) {
         event.preventDefault();
         setIsError(false);
@@ -43,6 +34,7 @@ export default function SearchBar(props) {
             shouldSave: true
         }
         setSearch(searchBody);
+        // Create cookie
         Cookies.set('moviesearch', JSON.stringify(searchBody), {expires: 2});
 
         // Make request

@@ -8,6 +8,11 @@
         top: 1px;
     }
 
+    .detail-page figure img {
+        border: 1px solid white;
+        border-radius: 10px;
+    }
+
     .detail-page main {
         /* display: inline-block; */
     }

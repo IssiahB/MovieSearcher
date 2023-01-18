@@ -5,10 +5,12 @@ import "../styles/detail.css";
 
 function DetailPage(props) {
     const [response, setResponse] = useSearchResponseContext();
-    console.log(response);
 
     function getActors() {
-        const actorList = response.Actors.split(', ');
+        let actorList = response.Actors;
+        if (actorList.includes(', ')) {
+            actorList = actorList.split(', ');
+        }
         return actorList;
     }
     

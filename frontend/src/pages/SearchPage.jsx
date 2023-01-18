@@ -14,7 +14,7 @@ function SearchPage() {
         <div className="search-page">
             <Heading title={`"${search.search}"`} />
             <SearchBar />
-            <CardBoard cardItems={response.Search} />
+            <CardBoard />
         </div>
     )
 }
