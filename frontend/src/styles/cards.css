@@ -18,7 +18,7 @@
 }
 
 .card-image img {
-    border: 1px solid white;
+    border: 1px solid #800000;
     border-radius: 10px;
     min-width: 200px;
     max-width: 300px;
